@@ -30,27 +30,31 @@ public class DiceGame extends JFrame{
 	private Button playSub2;
 	private int click2 = 0;
 	
-	private Label rounds;
-	private TextField numRounds;
-	private Button roundSub;
-	private int game_round;
+	private int turn; //turn counter for game altogether
+	private int turn_1; //turn counter for player 1
+	private int turn_2; //turn counter for player 2
+	private int life_pt_1, life_pt_2; //life points left
+	private int pts_1, pts_2; //number of points each player had
+	private int res_1, res_2; //roll of each player
 	
 	private Button roll;
 	private Label rollNum;
 	private TextField showRoll;
 	private int random;
-	private int roll_time = 0;
 	
 	private Button start;
 	
 	private JTextArea stats;
-	private JTextPane element;
+	private JTextArea pt_stat;
 	
 	Random elementGenerator;
+	String element;
 	
 	public DiceGame(){
 		
 		setSize(500,600);
+		life_pt_1 = 3;
+		life_pt_2 = 3;
 		
 		elementGenerator = new Random();
 		
@@ -115,36 +119,12 @@ public class DiceGame extends JFrame{
             	stats.append(user_name_2);
             	stats.append("\n");
             	name2.setText(" ");
+            	
+            	stats.append("Life points:\t" + life_pt_1 + "\t" + life_pt_2);
                 
             }
         });
 		
-		//Get game information
-		
-		panel3 = new JPanel(new FlowLayout()); //For getting player info
-		panelGame.add(panel3, panel3.CENTER_ALIGNMENT);
-		
-		rounds = new Label("Enter the number of rounds you wish to play: ");
-		numRounds = new TextField();
-		roundSub = new Button("Submit");
-		
-		panel3.add(rounds);
-		panel3.add(numRounds);
-		panel3.add(roundSub);
-		
-		roundSub.addActionListener(new ActionListener() {
-			 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-            	game_round = Integer.parseInt(numRounds.getText());
-            	stats.append("Round\n");
-            	for(int i = 1; i <= game_round; i++)
-            	{
-            		stats.append(i + "\n");
-            	}
-            }
-        });
 		
 		//Start game
 		panel3 = new JPanel(new FlowLayout()); //For getting player info
@@ -170,6 +150,11 @@ public class DiceGame extends JFrame{
 		roll = new Button("Roll!");
 		rollNum = new Label("Your roll: ");
 		showRoll = new TextField(10);
+		turn = 0;
+		turn_1 = 0;
+		turn_2 = 0;
+		pts_1 = 0;
+		pts_2 = 0;
 		
 		panel4.add(roll);
 		panel4.add(rollNum);
@@ -180,22 +165,70 @@ public class DiceGame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	roll_time++;
+            	turn++;
             	random = elementGenerator.nextInt(6);
+            	
             	if(random == 0){
-            			showRoll.setText("FIRE");
+            			element = "FIRE";
             	}else if(random == 1){
-        			showRoll.setText("WATER");
+            			element = "WATER";
             	}else if(random == 2){
-        			showRoll.setText("ELECTRICITY");
+        				element = "ELECTRIC";
             	}else if(random == 3){
-        			showRoll.setText("GROUND");
+        				element = "GRASS";
             	}else if(random == 4){
-        			showRoll.setText("BLAH");
-            	}else{
-        			showRoll.setText("MEH");
+        				element = "ICE";
+            	}else if(random == 5){
+        				element = "EARTH";
             	}
             	
+            	//If player 1 rolls
+            	if(turn % 2 == 1)
+            	{
+            		turn_1 = 1;
+            		res_1 = random;
+            		
+            	}else{
+            		//If player 2 rolls
+            		turn_2 = 1;
+            		res_2 = random;
+            	}
+            	
+            	if(turn_1 == 1 && turn_2 == 1)
+            	{
+            		//If both players have rolled, player 2 beats player 1
+            		if(res_1 == 0 && (res_2 == 1 || res_2 == 5))
+            		{
+            			//Water, earth beats fire
+            			pts_2 += 200;
+            			pt_stat.append("\n");
+            			pt_stat.append(user_name_2 + " has won 200 points!");
+            			
+            		}
+            		else if(res_1 == 1 && (res_2 == 2 || res_2 == 3))
+            		{
+            			//Electric, grass beats water
+            			pts_2 += 200;
+            			pt_stat.append("\n");
+            			pt_stat.append(user_name_2 + " has won 200 points!");
+            			
+            		}
+            		else if(res_1 == 2 && (res_2 == 3 || res_2 == 5))
+            		{
+            			//Grass, earth beats electric
+            			pts_2 += 200;
+            			pt_stat.append("\n");
+            			pt_stat.append(user_name_2 + " has won 200 points!");
+            			
+            		}
+            		else
+            		{
+            			pts_1 = pts_1;
+            		}
+            		
+            		turn_1 = 0;
+            		turn_2 = 0;
+            	}
             	
             }
         });
@@ -206,11 +239,14 @@ public class DiceGame extends JFrame{
 		stats = new JTextArea();
 		panel5.add(stats);
 		
+		
+		
 		//Game output
 		panel6 = new JPanel(new FlowLayout()); //For getting player info
 		panelGame.add(panel6, panel6.CENTER_ALIGNMENT);
-		element = new JTextPane();
-		panel6.add(element);
+		pt_stat = new JTextArea();
+		panel6.add(pt_stat);
+		pt_stat.append("*******GAME STATS******");
 		
 		
 		//Winner declaration
