@@ -11,6 +11,7 @@ public class DiceGame extends JFrame{
 	JFrame frame;
 	
 	private JPanel panelGame;
+	private JPanel titlePan;
 	private JPanel panel1;
 	private JPanel panel2;
 	private JPanel panel3;
@@ -19,6 +20,8 @@ public class DiceGame extends JFrame{
 	private JPanel panel6;
 	private JPanel panel7;
 	private JPanel panel8;
+	
+	private JLabel title;
 	
 	private Label player1;
 	public String user_name_1;
@@ -90,6 +93,16 @@ public class DiceGame extends JFrame{
 		panelGame = new JPanel(); //Get player information
 		panelGame.setLayout(new BoxLayout(panelGame, BoxLayout.Y_AXIS));
 		add(panelGame);
+		
+		
+		//Add title to the game
+		titlePan = new JPanel(new FlowLayout());
+		title = new JLabel("Ultimate Dice Game");
+		titlePan.setBackground(Color.BLACK);
+		title.setForeground(Color.WHITE);
+		title.setFont(new Font("Impact", Font.PLAIN, 50));
+		panelGame.add(titlePan);
+		titlePan.add(title);
 		
 		
 		//Get player 1 information
