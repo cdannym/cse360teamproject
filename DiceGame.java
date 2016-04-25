@@ -50,12 +50,13 @@ public class DiceGame extends JFrame{
 	
 	private Button start;
 	
-	private Label player_names;
+	private Label player_names_1, player_names_2;
 	private JTextField p_names_1, p_names_2;
 	
 	private Label life_lbl;
 	private Label pts_lbl;
 	private Label play_lbl;
+	private Label tab_life, tab_pts;
 	private JTextField life_field_1, life_field_2;
 	private JTextField pts_field_1, pts_field_2;
 	
@@ -168,6 +169,7 @@ public class DiceGame extends JFrame{
 		roll = new Button("Roll!");
 		rollNum = new Label("Your roll: ");
 		rollNum.setForeground(Color.WHITE);
+		roll.setEnabled(false);
 		
 		showRoll = new TextField(10);
 		turn = 0;
@@ -212,11 +214,15 @@ public class DiceGame extends JFrame{
             	//If player 1 rolls
             	if(turn % 2 == 1)
             	{
+            		p_names_1.setBackground(Color.RED);
+            		p_names_2.setBackground(Color.WHITE);
             		turn_1 = 1;
             		res_1 = random;
             		
             	}else{
             		//If player 2 rolls
+            		p_names_1.setBackground(Color.WHITE);
+            		p_names_2.setBackground(Color.RED);
             		turn_2 = 1;
             		res_2 = random;
             	}
@@ -275,11 +281,13 @@ public class DiceGame extends JFrame{
             		if(life_pt_1 == 0)
             		{
             			declare.setText(user_name_2);
+            			roll.setEnabled(false);
             		}
             		
             		if(life_pt_2 == 0)
             		{
             			declare.setText(user_name_1);
+            			roll.setEnabled(false);
             		}
             		
             		turn_1 = 0;
@@ -295,8 +303,12 @@ public class DiceGame extends JFrame{
 		panelGame.add(panel4b, panel4b.CENTER_ALIGNMENT);
 		panel4b.setBackground(Color.BLACK);
 		
-		player_names = new Label("      Players:");
-		player_names.setForeground(Color.WHITE);
+		player_names_1 = new Label("     Player 1:");
+		player_names_1.setForeground(Color.WHITE);
+		
+		player_names_2 = new Label("Player 2:");
+		player_names_2.setForeground(Color.WHITE);
+		
 		p_names_1 = new JTextField(5);
 		p_names_2 = new JTextField(5);
 		
@@ -306,16 +318,20 @@ public class DiceGame extends JFrame{
 	    p_names_1.setEditable(false);
 		p_names_2.setEditable(false);
 		
-		panel4b.add(player_names);
+		panel4b.add(player_names_1);
 		panel4b.add(p_names_1);
+		panel4b.add(player_names_2);
 		panel4b.add(p_names_2);
 		
-		
+		//Universal lab variable
+		tab_life = new Label("            ");
+		tab_pts = new Label("            ");
 		
 		//Life points stats
 		panel5 = new JPanel(new FlowLayout()); //For getting player info
 		panelGame.add(panel5, panel5.CENTER_ALIGNMENT);
 		panel5.setBackground(Color.BLACK);
+		
 		
 		life_lbl = new Label(" Life points: ");
 		life_lbl.setForeground(Color.white);
@@ -330,6 +346,7 @@ public class DiceGame extends JFrame{
     	
 		panel5.add(life_lbl);
 		panel5.add(life_field_1);
+		panel5.add(tab_life);
 		panel5.add(life_field_2);
 		
 		
@@ -351,6 +368,7 @@ public class DiceGame extends JFrame{
     	
 		panel6.add(pts_lbl);
 		panel6.add(pts_field_1);
+		panel6.add(tab_pts);
 		panel6.add(pts_field_2);
 		
 		start.addActionListener(new ActionListener() {
@@ -366,6 +384,7 @@ public class DiceGame extends JFrame{
             	pts_field_2.setText("0");
             	
             	start.setEnabled(false);
+            	roll.setEnabled(true);
             	
             	
             }
@@ -412,6 +431,9 @@ public class DiceGame extends JFrame{
             	p_names_1.setText(" ");
             	declare.setText(" ");
             	showRoll.setText(" ");
+            	
+            	p_names_1.setBackground(Color.WHITE);
+        		p_names_2.setBackground(Color.WHITE);
             	
             	life_pt_1 = 3;
         		life_pt_2 = 3;
