@@ -732,7 +732,7 @@ public class DiceGame extends JFrame{
                         life_field_1.setText(Integer.toString(life_pt_1));
                         
                     }
-                    //6023445281
+                    
                     
                     //Winner declaration
                     if(life_pt_1 <= 0)
