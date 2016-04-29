@@ -20,6 +20,7 @@ public class DiceGame extends JFrame{
     private JPanel panel6;
     private JPanel panel7;
     private JPanel panel8;
+    private JPanel panel9;
     
     private JLabel title;
     
@@ -73,6 +74,8 @@ public class DiceGame extends JFrame{
     private JLabel winner;
     private JTextField declare;
     
+    
+    private JTextArea player_stats;
     
     private JButton reset;
     
@@ -131,13 +134,8 @@ public class DiceGame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                click1 = 1;
-                user_name_1 = name1.getText();
-                sub_name_1 = new Label(user_name_1);
-                p_names_1.setText(user_name_1);
-                name1.setText(" ");
-                name1.setEditable(false);
-                playSub1.setEnabled(false);
+                
+                get_player_1(user_name_1);
             }
         });
         
@@ -160,12 +158,8 @@ public class DiceGame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                click2 = 1;
-                user_name_2 = name2.getText();
-                p_names_2.setText(user_name_2);
-                name2.setText(" ");
-                name2.setEditable(false);
-                playSub2.setEnabled(false);
+                
+                get_player_2(user_name_2);
                 
             }
         });
@@ -212,112 +206,7 @@ public class DiceGame extends JFrame{
             {
                 //Execute when button is pressed
                 
-                turn++;
-                random = elementGenerator.nextInt(27);
-                
-                
-                if(random == fire || random == fire1 || random == fire2 || random == fire3){
-                    element = "FIRE";
-                    showRoll.setText("FIRE"  + random);
-                }else if(random == water || random == water1 || random == water2 || random == water3){
-                    element = "WATER";
-                    showRoll.setText("WATER"  + random);
-                }else if(random == electric || random == electric1 || random == electric2 || random == electric3){
-                    element = "ELECTRIC";
-                    showRoll.setText("ELECTRIC"  + random);
-                }else if(random == grass || random == grass1 || random == grass2 || random == grass3){
-                    element = "GRASS";
-                    showRoll.setText("GRASS"  + random);
-                }else if(random == ice || random == ice1 || random == ice2 || random == ice3){
-                    element = "ICE";
-                    showRoll.setText("ICE"  + random);
-                }else if(random == earth || random == earth1 || random == earth2 || random == earth3){
-                    element = "EARTH";
-                    showRoll.setText("EARTH"  + random);
-                }
-                else if(random == 24 || random == 25){
-                    element = "LEGENDARY";
-                    showRoll.setText("LEGENDARY"  + random);
-                }
-                
-                //If player 1 rolls
-                if(turn % 2 == 1)
-                {
-                    //p_names_1.setBackground(Color.RED);
-                    //p_names_2.setBackground(Color.WHITE);
-                    //player_names_1.setForeground(Color.RED);
-                    //player_names_1.setForeground(Color.WHITE);
-                    turn_1 = 1;
-                    res_1 = random;
-                    
-                }else{
-                    //If player 2 rolls
-                    //	p_names_1.setForeground(Color.WHITE);
-                    //p_names_2.setForeground(Color.RED);
-                    turn_2 = 1;
-                    res_2 = random;
-                }
-                
-                //Color Changes for Player 1
-                if(res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
-                {
-                    p_names_1.setBackground(Color.RED);
-                }
-                else if(res_1 == water || res_1 == water1 || res_1 == water2 || res_1 == water3)
-                {
-                    p_names_1.setBackground(Color.BLUE);
-                }
-                else if(res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)
-                {
-                    p_names_1.setBackground(Color.YELLOW);
-                }
-                else if(res_1  == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3)
-                {
-                    p_names_1.setBackground(Color.GREEN);
-                }
-                else if(res_1  == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)
-                {
-                    p_names_1.setBackground(Color.CYAN);
-                }
-                else if(res_1  == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)
-                {
-                    p_names_1.setBackground(Color.GRAY);
-                }
-                else if(res_1 == 24 || res_1 == 25)
-                {
-                    p_names_1.setBackground(Color.ORANGE);
-                }
-                
-                
-                //Color Changes for Player 2
-                if(res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
-                {
-                    p_names_2.setBackground(Color.RED);
-                }
-                else if(res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
-                {
-                    p_names_2.setBackground(Color.BLUE);
-                }
-                else if(res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)
-                {
-                    p_names_2.setBackground(Color.YELLOW);
-                }
-                else if(res_2  == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3)
-                {
-                    p_names_2.setBackground(Color.GREEN);
-                }
-                else if(res_2  == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)
-                {
-                    p_names_2.setBackground(Color.CYAN);
-                }
-                else if(res_2  == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)
-                {
-                    p_names_2.setBackground(Color.GRAY);
-                }
-                else if(res_2 == 24 || res_2 == 25)
-                {
-                    p_names_2.setBackground(Color.MAGENTA);
-                }
+            	roll(e);
                 
                 //Total points tracker
                 
@@ -330,11 +219,7 @@ public class DiceGame extends JFrame{
                         || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //FIRE is beat by WATER & EARTH
-                        pts_2 += 50;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        fire_lose_strong_1();
                         
                     }
                     else if((res_1  == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
@@ -342,14 +227,7 @@ public class DiceGame extends JFrame{
                                 || (res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)))
                     {
                         //FIRE VS FIRE & ELECTRIC
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        fire_lose_weak_1();
                         
                     }
                     //FIRE PLAYER 2
@@ -358,11 +236,7 @@ public class DiceGame extends JFrame{
                              || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //FIRE is beat by WATER & EARTH
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        fire_lose_strong_2();
                         
                     }
                     else if((res_2  == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
@@ -370,14 +244,7 @@ public class DiceGame extends JFrame{
                                 || (res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3)))
                     {
                         //FIRE VS FIRE & ELECTRIC
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                    	fire_lose_weak_2();
                     }
                     else
                     {
@@ -389,11 +256,7 @@ public class DiceGame extends JFrame{
                         || (res_2  == grass || res_2  == grass1 || res_2  == grass2 || res_2  == grass3)))
                     {
                         //WATER is beat by ELECTRIC & GRASS
-                        pts_2 += 50;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        water_lose_strong_1();
                         
                     }
                     else if((res_1  == water || res_1  == water1 || res_1  == water2 || res_1  == water3) &&
@@ -401,14 +264,7 @@ public class DiceGame extends JFrame{
                              || (res_2  == ice || res_2  == ice1 || res_2  == ice2 || res_2  == ice3)))
                     {
                         //WATER VS WATER & ICE
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        water_lose_weak_1();
                         
                     }
                     //WATER PLAYER 2
@@ -417,11 +273,7 @@ public class DiceGame extends JFrame{
                              || (res_1  == grass || res_1  == grass1 || res_1  == grass2 || res_1  == grass3)))
                     {
                         //WATER is beat by ELECTRIC & GRASS
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        water_lose_strong_2();
                         
                     }
                     else if((res_2  == water || res_2  == water1 || res_2  == water2 || res_2  == water3) &&
@@ -429,15 +281,7 @@ public class DiceGame extends JFrame{
                              || (res_1  == ice || res_1  == ice1 || res_1  == ice2 || res_1  == ice3)))
                     {
                         //WATER VS WATER & ICE
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
-                        
+                    	water_lose_weak_2();
                     }
                     else
                     {
@@ -449,25 +293,14 @@ public class DiceGame extends JFrame{
                         || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //ELECTRIC is beat by GRASS & EARTH
-                        pts_2 += 50;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        electric_lose_strong_1();
                         
                     }
                     else if((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3) &&
                             ((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)))
                     {
                         //ELECTRIC VS ELECTRIC
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        electric_lose_weak_1();
                         
                     }
                     //ELECTRIC PLAYER 2
@@ -476,25 +309,14 @@ public class DiceGame extends JFrame{
                              || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //ELECTRIC is beat by GRASS & EARTH
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                    	electric_lose_strong_2();
                         
                     }
                     else if((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3) &&
                             ((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3)))
                     {
                         //ELECTRIC VS ELECTRIC
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                    	electric_lose_weak_2();
                         
                     }
                     else
@@ -507,11 +329,7 @@ public class DiceGame extends JFrame{
                         || (res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
                     {
                         //GRASS is beat by FIRE & ICE
-                        pts_2 += 50;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        grass_lose_strong_1();
                         
                     }
                     else if((res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3) &&
@@ -519,14 +337,7 @@ public class DiceGame extends JFrame{
                              || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //GRASS VS GRASS & EARTH
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        grass_lose_weak_1();
                         
                     }
                     //GRASS PLAYER 2
@@ -535,11 +346,7 @@ public class DiceGame extends JFrame{
                              || (res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
                     {
                         //GRASS is beat by FIRE & ICE
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        grass_lose_strong_2();
                         
                     }
                     else if((res_2 == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3) &&
@@ -547,14 +354,7 @@ public class DiceGame extends JFrame{
                              || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //GRASS VS GRASS & EARTH
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        grass_lose_weak_2();
                         
                     }
                     else
@@ -567,25 +367,14 @@ public class DiceGame extends JFrame{
                         || (res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)))
                     {
                         //ICE is beat by FIRE & ELECTRIC
-                        pts_2 += 50;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        ice_lose_strong_1();
                         
                     }
                     else if((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3) &&
                             ((res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
                     {
                         //ICE VS ICE
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        ice_lose_weak_1();
                         
                     }
                     //ICE PLAYER 2
@@ -594,25 +383,14 @@ public class DiceGame extends JFrame{
                              || (res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)))
                     {
                         //ICE is beat by FIRE & ELECTRIC
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        ice_lose_strong_2();
                         
                     }
                     else if((res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3) &&
                             ((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
                     {
                         //ICE VS ICE
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        ice_lose_weak_2();
                         
                     }
                     else
@@ -625,24 +403,14 @@ public class DiceGame extends JFrame{
                         || (res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
                     {
                         //EARTH is beat by WATER & ICE
-                        pts_2 += 50;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
+                        earth_lose_strong_1();
                         
                     }
                     else if((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3) &&
                             ((res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //EARTH VS EARTH
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        earth_lose_weak_1();
                         
                     }
                     //EARTH PLAYER 2
@@ -651,25 +419,14 @@ public class DiceGame extends JFrame{
                              || (res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
                     {
                         //EARTH is beat by WATER & ICE
-                        pts_1 += 50;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        earth_lose_strong_2();
                         
                     }
                     else if((res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3) &&
                             ((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //EARTH VS EARTH
-                        pts_1 += 25;
-                        pts_2 += 25;
-                        life_pt_1--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
+                        earth_lose_weak_2();
                         
                     }
                     else
@@ -743,6 +500,7 @@ public class DiceGame extends JFrame{
                 
             }
         });
+        
         
         
         //Player Stats
@@ -853,6 +611,9 @@ public class DiceGame extends JFrame{
         panel7.add(winner);
         panel7.add(declare);
         
+     
+    
+        
         //Reset Game
         panel8 = new JPanel(new FlowLayout()); //For getting player info
         panelGame.add(panel8, panel8.CENTER_ALIGNMENT);
@@ -860,6 +621,18 @@ public class DiceGame extends JFrame{
         
         reset = new JButton("RESET");
         panel8.add(reset);
+        
+      //Shows player statistics
+        panel9 = new JPanel(new FlowLayout()); //For getting player info
+        panelGame.add(panel9, panel9.CENTER_ALIGNMENT);
+        panel9.setBackground(Color.BLACK);
+        
+        player_stats = new JTextArea(500, 200);
+        player_stats.setEditable(false);
+        player_stats.setBackground(Color.BLACK);
+        player_stats.setForeground(Color.BLACK);
+        
+        panel9.add(player_stats);
         
         reset.addActionListener(new ActionListener() {
             
@@ -909,6 +682,401 @@ public class DiceGame extends JFrame{
         }
          );
     }
+    
+    public void get_player_1(String play_1)
+    {
+    	click1 = 1;
+        play_1 = name1.getText();
+        sub_name_1 = new Label(play_1);
+        p_names_1.setText(play_1);
+        name1.setText(" ");
+        name1.setEditable(false);
+        playSub1.setEnabled(false);
+    }
+    
+    public void get_player_2(String play_2)
+    {
+    	click2 = 1;
+        play_2 = name2.getText();
+        sub_name_2 = new Label(play_2);
+        p_names_2.setText(play_2);
+        name2.setText(" ");
+        name2.setEditable(false);
+        playSub2.setEnabled(false);
+    }
+    
+    public void fire_lose_strong_1()
+    {
+    	
+    	pts_2 += 50;
+        life_pt_1--;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    	
+    }
+    
+    public void fire_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    
+    public void fire_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void fire_lose_weak_2()
+    {
+        pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void water_lose_strong_1()
+    {
+    	pts_2 += 50;
+        life_pt_1--;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    }
+    
+    public void water_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void water_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void water_lose_weak_2()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void electric_lose_strong_1()
+    {
+    	pts_2 += 50;
+        life_pt_1--;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    }
+    
+    public void electric_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void electric_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void electric_lose_weak_2()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    
+    public void grass_lose_strong_1()
+    {
+    	pts_2 += 50;
+        life_pt_1--;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    }
+    
+    
+    public void grass_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    
+    public void grass_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    
+    public void grass_lose_weak_2()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void ice_lose_strong_1()
+    {
+    	pts_2 += 50;
+        life_pt_1--;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    }
+    
+    public void ice_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void ice_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void ice_lose_weak_2()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    
+    public void earth_lose_strong_1()
+    {
+    	pts_2 += 50;
+        life_pt_1--;
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+    }
+    
+    public void earth_lose_weak_1()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void earth_lose_strong_2()
+    {
+    	pts_1 += 50;
+        life_pt_2--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void earth_lose_weak_2()
+    {
+    	pts_1 += 25;
+        pts_2 += 25;
+        life_pt_1--;
+        life_pt_2--;
+        pts_field_1.setText(Integer.toString(pts_1));
+        pts_field_2.setText(Integer.toString(pts_2));
+        life_field_1.setText(Integer.toString(life_pt_1));
+        life_field_2.setText(Integer.toString(life_pt_2));
+    }
+    
+    public void roll(ActionEvent e)
+    {
+
+        turn++;
+        random = elementGenerator.nextInt(27);
+        player_stats.append("\n");
+        player_stats.append("Player stats");
+        
+        if(random == fire || random == fire1 || random == fire2 || random == fire3){
+            element = "FIRE";
+            showRoll.setText("FIRE"  + random);
+            
+        }else if(random == water || random == water1 || random == water2 || random == water3){
+            element = "WATER";
+            showRoll.setText("WATER"  + random);
+        }else if(random == electric || random == electric1 || random == electric2 || random == electric3){
+            element = "ELECTRIC";
+            showRoll.setText("ELECTRIC"  + random);
+        }else if(random == grass || random == grass1 || random == grass2 || random == grass3){
+            element = "GRASS";
+            showRoll.setText("GRASS"  + random);
+        }else if(random == ice || random == ice1 || random == ice2 || random == ice3){
+            element = "ICE";
+            showRoll.setText("ICE"  + random);
+        }else if(random == earth || random == earth1 || random == earth2 || random == earth3){
+            element = "EARTH";
+            showRoll.setText("EARTH"  + random);
+        }
+        else if(random == 24 || random == 25){
+            element = "LEGENDARY";
+            showRoll.setText("LEGENDARY"  + random);
+        }
+        
+        //If player 1 rolls
+        if(turn % 2 == 1)
+        {
+            //p_names_1.setBackground(Color.RED);
+            //p_names_2.setBackground(Color.WHITE);
+            //player_names_1.setForeground(Color.RED);
+            //player_names_1.setForeground(Color.WHITE);
+            turn_1 = 1;
+            res_1 = random;
+            
+        }else{
+            //If player 2 rolls
+            //	p_names_1.setForeground(Color.WHITE);
+            //p_names_2.setForeground(Color.RED);
+            turn_2 = 1;
+            res_2 = random;
+        }
+        
+        //Color Changes for Player 1
+        if(res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
+        {
+            p_names_1.setBackground(Color.RED);
+        }
+        else if(res_1 == water || res_1 == water1 || res_1 == water2 || res_1 == water3)
+        {
+            p_names_1.setBackground(Color.BLUE);
+        }
+        else if(res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)
+        {
+            p_names_1.setBackground(Color.YELLOW);
+        }
+        else if(res_1  == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3)
+        {
+            p_names_1.setBackground(Color.GREEN);
+        }
+        else if(res_1  == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)
+        {
+            p_names_1.setBackground(Color.CYAN);
+        }
+        else if(res_1  == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)
+        {
+            p_names_1.setBackground(Color.GRAY);
+        }
+        else if(res_1 == 24 || res_1 == 25)
+        {
+            p_names_1.setBackground(Color.ORANGE);
+        }
+        
+        
+        //Color Changes for Player 2
+        if(res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
+        {
+            p_names_2.setBackground(Color.RED);
+        }
+        else if(res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
+        {
+            p_names_2.setBackground(Color.BLUE);
+        }
+        else if(res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)
+        {
+            p_names_2.setBackground(Color.YELLOW);
+        }
+        else if(res_2  == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3)
+        {
+            p_names_2.setBackground(Color.GREEN);
+        }
+        else if(res_2  == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)
+        {
+            p_names_2.setBackground(Color.CYAN);
+        }
+        else if(res_2  == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)
+        {
+            p_names_2.setBackground(Color.GRAY);
+        }
+        else if(res_2 == 24 || res_2 == 25)
+        {
+            p_names_2.setBackground(Color.MAGENTA);
+        }
+    }
+    
     public void Winner()
     {
         //Winner declaration
@@ -916,12 +1084,14 @@ public class DiceGame extends JFrame{
         {
             declare.setText(user_name_2);
             roll.setEnabled(false);
+            player_stats.setForeground(Color.WHITE);
         }
         
         if(life_pt_2 <= 0)
         {
             declare.setText(user_name_1);
             roll.setEnabled(false);
+            player_stats.setForeground(Color.WHITE);
         }
     }
     
@@ -930,6 +1100,5 @@ public class DiceGame extends JFrame{
         Frame f = new DiceGame();
         f.show();
     }
-    
     
 }
