@@ -5,6 +5,10 @@ import javax.swing.*;
 import java.util.*;
 import java.util.Random;
 import javax.swing.border.Border;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
+
 
 public class DiceGame extends JFrame{
     
@@ -126,6 +130,8 @@ public class DiceGame extends JFrame{
             
             public void actionPerformed(ActionEvent e)
             {
+            	 Decorator decorator = new Decorator(DiceGame.this,"Welcome  " + name1.getText());
+                 decorator.show();
                 //Execute when button is pressed
                 click1 = 1;
                 user_name_1 = name1.getText();
@@ -155,6 +161,8 @@ public class DiceGame extends JFrame{
             
             public void actionPerformed(ActionEvent e)
             {
+            	 Decorator decorator = new Decorator(DiceGame.this,"Welcome  " + name2.getText());
+                 decorator.show();
                 //Execute when button is pressed
                 click2 = 1;
                 user_name_2 = name2.getText();
@@ -173,6 +181,15 @@ public class DiceGame extends JFrame{
         
         start = new Button("START");
         panel3.add(start);
+        start.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 Decorator decorator = new Decorator(DiceGame.this,"Let Start, " + "Roll the Dice");
+                 decorator.show();
+				
+			}
+		});
         
         //Roll
         panel4 = new JPanel(new FlowLayout()); //For getting player info
@@ -200,29 +217,38 @@ public class DiceGame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                
+                String message = null;
+                boolean showAlert = true;
                 turn++;
                 random = elementGenerator.nextInt(6);
                 
                 if(random == 0){
                     element = "FIRE";
+                    message = "FIRE IS FURIOUS!!!";
                     showRoll.setText("FIRE");
                 }else if(random == 1){
                     element = "WATER";
+                    message = "WATER SPEAKING!!!";
                     showRoll.setText("WATER");
                 }else if(random == 2){
                     element = "ELECTRIC";
+                    message = "ELECTRIC - SPEED OF LIGHT!!!";
                     showRoll.setText("ELECTRIC");
                 }else if(random == 3){
                     element = "GRASS";
+                    message = "GRASS- GO GREEN!!!";
                     showRoll.setText("GRASS");
                 }else if(random == 4){
                     element = "ICE";
+                    message = "ICE - TIME TO FREEZE!!!";
                     showRoll.setText("ICE");
                 }else if(random == 5){
+                	message = "EARTH - I AM IN HEAVEN!!!";
                     element = "EARTH";
                     showRoll.setText("EARTH");
                 }
+             //   Decorator decorator = new Decorator(DiceGame.this,message);
+             //   decorator.show();
                 
                 //If player 1 rolls
                 if(turn % 2 == 1)
@@ -312,7 +338,10 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Keep trying " + user_name_2 + "- 10 Points");
+                            d.show();                           
+                        }
                         
                         
                     }
@@ -324,12 +353,17 @@ public class DiceGame extends JFrame{
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Keep trying " + user_name_1 + "- 10 Points");
+                            d.show();                           
+                        }
                         
                         
                     }
                     else
                     {
                         pts_1 = pts_1;
+                   
                     }
                     //WATER PLAYER 1
                     if(res_1 == 1 && (res_2 == 2 || res_2 == 3))
@@ -339,6 +373,12 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Good Job " + user_name_2 + "- 20 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                         
                     }
                     //WATER PLAYER 2
@@ -349,11 +389,17 @@ public class DiceGame extends JFrame{
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Good Job " + user_name_1 + "- 20 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
                     else
                     {
                         pts_1 = pts_1;
+                      
                     }
                     //ELECTRIC PLAYER 1
                     if(res_1 == 2 && (res_2 == 3 || res_2 == 5))
@@ -363,6 +409,13 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 30 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
+                    }
                         
                     }
                     //ELECTRIC PLAYER 2
@@ -373,11 +426,19 @@ public class DiceGame extends JFrame{
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 30 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
+                        
+                  
                     else
                     {
                         pts_1 = pts_1;
+                      
                     }
                     //GRASS PLAYER 1
                     if(res_1 == 3 && (res_2 == 0 || res_2 == 4))
@@ -387,6 +448,12 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Superb " + user_name_2 + "- 40 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                         
                     }
                     //GRASS PLAYER 2
@@ -397,11 +464,17 @@ public class DiceGame extends JFrame{
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Superb " + user_name_1 + "- 40 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
                     else
                     {
                         pts_1 = pts_1;
+                       
                     }
                     //ICE PLAYER 1
                     if(res_1 == 4 && (res_2 == 0 || res_2 == 2))
@@ -411,8 +484,15 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Great " + user_name_2 + "- 50 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
+                        
+              
                     //ICE PLAYER 2
                     else if(res_2 == 4 && (res_1 == 0 || res_1 == 2))
                     {
@@ -421,35 +501,54 @@ public class DiceGame extends JFrame{
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Great " + user_name_1 + "- 50 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
                     else
                     {
                         pts_1 = pts_1;
+                       
                     }
                     //EARTH PLAYER 1
                     if(res_1 == 5 && (res_2 == 1 || res_2 == 4))
                     {
+                    	
                         //EARTH is beat by WATER & ICE
                         pts_2 += 60;
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        
+                        if(life_pt_1 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_2 + "- 60 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                     }
                     //EARTH PLAYER 2
                     else if(res_2 == 5 && (res_1 == 1 || res_1 == 4))
                     {
-                        //EARTH is beat by WATER & ICE
+                     //EARTH is beat by WATER & ICE
                         pts_1 += 60;
                         pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
                         life_field_2.setText(Integer.toString(life_pt_2));
+                        if(life_pt_2 != 0){
+                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 60 Points");
+                            d.show();                           
+                        }
+                        res_1 = 0;
+                        res_2=0;
                         
                     }
                     else
                     {
                         pts_1 = pts_1;
+                      
                     }
                     
                     
@@ -459,19 +558,23 @@ public class DiceGame extends JFrame{
                     {
                         declare.setText(user_name_2);
                         roll.setEnabled(false);
+                        Decorator d = new Decorator(DiceGame.this,user_name_2 + " Won by " + pts_2+"-" +pts_1);
+                        d.show();
                     }
                     
                     if(life_pt_2 == 0)
                     {
                         declare.setText(user_name_1);
                         roll.setEnabled(false);
+                        Decorator d = new Decorator(DiceGame.this,user_name_1 + " Won by " + pts_1+"-" +pts_2);
+                        d.show();
                     }
                     
                     turn_1 = 0;
                     turn_2 = 0;
                 }
                 
-            }
+         
         });
         
         
