@@ -5,10 +5,6 @@ import javax.swing.*;
 import java.util.*;
 import java.util.Random;
 import javax.swing.border.Border;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-
-
 
 public class DiceGame extends JFrame{
     
@@ -54,6 +50,10 @@ public class DiceGame extends JFrame{
     private Label rollNum;
     private TextField showRoll;
     private int random;
+    private int fire, water, electric, grass, ice, earth;
+    private int fire1, water1, electric1, grass1, ice1, earth1;
+    private int fire2, water2, electric2, grass2, ice2, earth2;
+    private int fire3, water3, electric3, grass3, ice3, earth3;
     
     private Button start;
     
@@ -80,15 +80,15 @@ public class DiceGame extends JFrame{
         
         
         //Customize Appearance of Game
-        Border border1 = BorderFactory.createLineBorder(Color.BLUE, 5);
-        Border border2 = BorderFactory.createLineBorder(Color.PINK, 5);
-        Border border3 = BorderFactory.createLineBorder(Color.GRAY, 5);
+        Border border1 = BorderFactory.createLineBorder(Color.BLACK, 5);
+        Border border2 = BorderFactory.createLineBorder(Color.RED, 5);
+        Border border3 = BorderFactory.createLineBorder(Color.DARK_GRAY, 5);
         
         //Set Frame size and color
         setSize(500,600);
         
-        life_pt_1 = 3;
-        life_pt_2 = 3;
+        life_pt_1 = 5;
+        life_pt_2 = 5;
         pts_1 = 0;
         pts_2 = 0;
         
@@ -130,8 +130,6 @@ public class DiceGame extends JFrame{
             
             public void actionPerformed(ActionEvent e)
             {
-            	 Decorator decorator = new Decorator(DiceGame.this,"Welcome  " + name1.getText());
-                 decorator.show();
                 //Execute when button is pressed
                 click1 = 1;
                 user_name_1 = name1.getText();
@@ -161,8 +159,6 @@ public class DiceGame extends JFrame{
             
             public void actionPerformed(ActionEvent e)
             {
-            	 Decorator decorator = new Decorator(DiceGame.this,"Welcome  " + name2.getText());
-                 decorator.show();
                 //Execute when button is pressed
                 click2 = 1;
                 user_name_2 = name2.getText();
@@ -181,15 +177,6 @@ public class DiceGame extends JFrame{
         
         start = new Button("START");
         panel3.add(start);
-        start.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				 Decorator decorator = new Decorator(DiceGame.this,"Let Start, " + "Roll the Dice");
-                 decorator.show();
-				
-			}
-		});
         
         //Roll
         panel4 = new JPanel(new FlowLayout()); //For getting player info
@@ -212,43 +199,46 @@ public class DiceGame extends JFrame{
         panel4.add(rollNum);
         panel4.add(showRoll);
         
+        fire = 0; fire1 = 1; fire2 = 2; fire3 = 3;
+        water = 4; water1 = 5; water2 = 6; water3 = 7;
+        electric = 8; electric1 = 9; electric2 = 10; electric3 = 11;
+        grass = 12; grass1 = 13; grass2 = 14; grass3 = 15;
+        ice = 16; ice1 = 17; ice2 = 18; ice3 = 19;
+        earth = 20; earth1 = 21; earth2 = 22; earth3 = 23;
+        
         roll.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                String message = null;
-                boolean showAlert = true;
-                turn++;
-                random = elementGenerator.nextInt(6);
                 
-                if(random == 0){
+                turn++;
+                random = elementGenerator.nextInt(27);
+                
+                
+                if(random == fire || random == fire1 || random == fire2 || random == fire3){
                     element = "FIRE";
-                    message = "FIRE IS FURIOUS!!!";
-                    showRoll.setText("FIRE");
-                }else if(random == 1){
+                    showRoll.setText("FIRE"  + random);
+                }else if(random == water || random == water1 || random == water2 || random == water3){
                     element = "WATER";
-                    message = "WATER SPEAKING!!!";
-                    showRoll.setText("WATER");
-                }else if(random == 2){
+                    showRoll.setText("WATER"  + random);
+                }else if(random == electric || random == electric1 || random == electric2 || random == electric3){
                     element = "ELECTRIC";
-                    message = "ELECTRIC - SPEED OF LIGHT!!!";
-                    showRoll.setText("ELECTRIC");
-                }else if(random == 3){
+                    showRoll.setText("ELECTRIC"  + random);
+                }else if(random == grass || random == grass1 || random == grass2 || random == grass3){
                     element = "GRASS";
-                    message = "GRASS- GO GREEN!!!";
-                    showRoll.setText("GRASS");
-                }else if(random == 4){
+                    showRoll.setText("GRASS"  + random);
+                }else if(random == ice || random == ice1 || random == ice2 || random == ice3){
                     element = "ICE";
-                    message = "ICE - TIME TO FREEZE!!!";
-                    showRoll.setText("ICE");
-                }else if(random == 5){
-                	message = "EARTH - I AM IN HEAVEN!!!";
+                    showRoll.setText("ICE"  + random);
+                }else if(random == earth || random == earth1 || random == earth2 || random == earth3){
                     element = "EARTH";
-                    showRoll.setText("EARTH");
+                    showRoll.setText("EARTH"  + random);
                 }
-             //   Decorator decorator = new Decorator(DiceGame.this,message);
-             //   decorator.show();
+                else if(random == 24 || random == 25){
+                    element = "LEGENDARY";
+                    showRoll.setText("LEGENDARY"  + random);
+                }
                 
                 //If player 1 rolls
                 if(turn % 2 == 1)
@@ -269,312 +259,489 @@ public class DiceGame extends JFrame{
                 }
                 
                 //Color Changes for Player 1
-                if(res_1  == 0)
+                if(res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
                 {
                     p_names_1.setBackground(Color.RED);
                 }
-                else if(res_1  == 1)
+                else if(res_1 == water || res_1 == water1 || res_1 == water2 || res_1 == water3)
                 {
                     p_names_1.setBackground(Color.BLUE);
                 }
-                else if(res_1  == 2)
+                else if(res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)
                 {
                     p_names_1.setBackground(Color.YELLOW);
                 }
-                else if(res_1  == 3)
+                else if(res_1  == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3)
                 {
                     p_names_1.setBackground(Color.GREEN);
                 }
-                else if(res_1  == 4)
+                else if(res_1  == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)
                 {
                     p_names_1.setBackground(Color.CYAN);
                 }
-                else if(res_1  == 5)
+                else if(res_1  == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)
                 {
-                    p_names_1.setBackground(Color.MAGENTA);
+                    p_names_1.setBackground(Color.GRAY);
+                }
+                else if(res_1 == 24 || res_1 == 25)
+                {
+                    p_names_1.setBackground(Color.ORANGE);
                 }
                 
                 
                 //Color Changes for Player 2
-                if(res_2  == 0)
+                if(res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
                 {
                     p_names_2.setBackground(Color.RED);
                 }
-                else if(res_2  == 1)
+                else if(res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
                 {
                     p_names_2.setBackground(Color.BLUE);
                 }
-                else if(res_2  == 2)
+                else if(res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)
                 {
                     p_names_2.setBackground(Color.YELLOW);
                 }
-                else if(res_2  == 3)
+                else if(res_2  == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3)
                 {
                     p_names_2.setBackground(Color.GREEN);
                 }
-                else if(res_2  == 4)
+                else if(res_2  == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)
                 {
                     p_names_2.setBackground(Color.CYAN);
                 }
-                else if (res_2  == 5)
+                else if(res_2  == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)
+                {
+                    p_names_2.setBackground(Color.GRAY);
+                }
+                else if(res_2 == 24 || res_2 == 25)
                 {
                     p_names_2.setBackground(Color.MAGENTA);
-                }
-                else
-                {
-                    p_names_2.setBackground(Color.WHITE);
                 }
                 
                 //Total points tracker
                 
-                if(turn_1 == 1 && turn_2 == 1)
+                while(turn_1 == 1 && turn_2 == 1)
                 {
-                    //If both players have rolled, player 2 beats player 1
+                    //ELEMENTAL COMBINATIONS
                     //FIRE PLAYER 1
-                    if(res_1 == 0 && (res_2 == 1 || res_2 == 5))
+                    if((res_1  == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)  &&
+                       ((res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
+                        || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //FIRE is beat by WATER & EARTH
-                        pts_2 += 10;
-                        pts_field_2.setText(Integer.toString(pts_2));
+                        pts_2 += 50;
                         life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Keep trying " + user_name_2 + "- 10 Points");
-                            d.show();                           
-                        }
                         
+                    }
+                    else if((res_1  == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
+                            && ((res_2  == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
+                                || (res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)))
+                    {
+                        //FIRE VS FIRE & ELECTRIC
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
                         
                     }
                     //FIRE PLAYER 2
-                    else if(res_2 == 0 && (res_1 == 1 || res_1 == 5))
+                    else if((res_2  == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)  &&
+                            ((res_1 == water || res_1 == water1 || res_1 == water2 || res_1 == water3)
+                             || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //FIRE is beat by WATER & EARTH
-                        pts_1 += 10;
-                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_1 += 50;
                         life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Keep trying " + user_name_1 + "- 10 Points");
-                            d.show();                           
-                        }
                         
-                        
+                    }
+                    else if((res_2  == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
+                            && ((res_1  == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
+                                || (res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3)))
+                    {
+                        //FIRE VS FIRE & ELECTRIC
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
                     }
                     else
                     {
                         pts_1 = pts_1;
-                   
                     }
                     //WATER PLAYER 1
-                    if(res_1 == 1 && (res_2 == 2 || res_2 == 3))
+                    if((res_1  == water || res_1 == water1 || res_1 == water2 || res_1 == water3) &&
+                       ((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)
+                        || (res_2  == grass || res_2  == grass1 || res_2  == grass2 || res_2  == grass3)))
                     {
                         //WATER is beat by ELECTRIC & GRASS
-                        pts_2 += 20;
-                        pts_field_2.setText(Integer.toString(pts_2));
+                        pts_2 += 50;
                         life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Good Job " + user_name_2 + "- 20 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
+                    }
+                    else if((res_1  == water || res_1  == water1 || res_1  == water2 || res_1  == water3) &&
+                            ((res_2  == water || res_2  == water1 || res_2  == water2 || res_2  == water3)
+                             || (res_2  == ice || res_2  == ice1 || res_2  == ice2 || res_2  == ice3)))
+                    {
+                        //WATER VS WATER & ICE
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
                         
                     }
                     //WATER PLAYER 2
-                    else if(res_2 == 1 && (res_1 == 2 || res_1 == 3))
+                    else if((res_2  == water || res_2 == water1 || res_2 == water2 || res_2 == water3) &&
+                            ((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3)
+                             || (res_1  == grass || res_1  == grass1 || res_1  == grass2 || res_1  == grass3)))
                     {
                         //WATER is beat by ELECTRIC & GRASS
-                        pts_1 += 20;
-                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_1 += 50;
                         life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Good Job " + user_name_1 + "- 20 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
+                    }
+                    else if((res_2  == water || res_2  == water1 || res_2  == water2 || res_2  == water3) &&
+                            ((res_1  == water || res_1  == water1 || res_1  == water2 || res_1  == water3)
+                             || (res_1  == ice || res_1  == ice1 || res_1  == ice2 || res_1  == ice3)))
+                    {
+                        //WATER VS WATER & ICE
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
                     }
                     else
                     {
                         pts_1 = pts_1;
-                      
                     }
                     //ELECTRIC PLAYER 1
-                    if(res_1 == 2 && (res_2 == 3 || res_2 == 5))
+                    if((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3) &&
+                       ((res_2  == grass || res_2  == grass1 || res_2  == grass2 || res_2  == grass3)
+                        || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //ELECTRIC is beat by GRASS & EARTH
-                        pts_2 += 30;
-                        pts_field_2.setText(Integer.toString(pts_2));
+                        pts_2 += 50;
                         life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 30 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
                     }
+                    else if((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3) &&
+                            ((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)))
+                    {
+                        //ELECTRIC VS ELECTRIC
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
                         
                     }
                     //ELECTRIC PLAYER 2
-                    else if(res_2 == 2 && (res_1 == 3 || res_1 == 5))
+                    else if((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3) &&
+                            ((res_1  == grass || res_1  == grass1 || res_1  == grass2 || res_1  == grass3)
+                             || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //ELECTRIC is beat by GRASS & EARTH
-                        pts_1 += 30;
-                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_1 += 50;
                         life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 30 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
-                    }
                         
-                  
+                    }
+                    else if((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3) &&
+                            ((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3)))
+                    {
+                        //ELECTRIC VS ELECTRIC
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
                     else
                     {
                         pts_1 = pts_1;
-                      
                     }
                     //GRASS PLAYER 1
-                    if(res_1 == 3 && (res_2 == 0 || res_2 == 4))
+                    if((res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3) &&
+                       ((res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
+                        || (res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
                     {
                         //GRASS is beat by FIRE & ICE
-                        pts_2 += 40;
-                        pts_field_2.setText(Integer.toString(pts_2));
+                        pts_2 += 50;
                         life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Superb " + user_name_2 + "- 40 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
+                    }
+                    else if((res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3) &&
+                            ((res_2 == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3)
+                             || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
+                    {
+                        //GRASS VS GRASS & EARTH
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
                         
                     }
                     //GRASS PLAYER 2
-                    else if(res_2 == 3 && (res_1 == 0 || res_1 == 4))
+                    else if((res_2 == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3) &&
+                            ((res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
+                             || (res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
                     {
                         //GRASS is beat by FIRE & ICE
-                        pts_1 += 40;
-                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_1 += 50;
                         life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Superb " + user_name_1 + "- 40 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
+                    }
+                    else if((res_2 == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3) &&
+                            ((res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3)
+                             || (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
+                    {
+                        //GRASS VS GRASS & EARTH
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
                     }
                     else
                     {
                         pts_1 = pts_1;
-                       
                     }
                     //ICE PLAYER 1
-                    if(res_1 == 4 && (res_2 == 0 || res_2 == 2))
+                    if((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3) &&
+                       ((res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
+                        || (res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)))
                     {
                         //ICE is beat by FIRE & ELECTRIC
                         pts_2 += 50;
-                        pts_field_2.setText(Integer.toString(pts_2));
                         life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Great " + user_name_2 + "- 50 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
-                    }
                         
-              
+                    }
+                    else if((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3) &&
+                            ((res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
+                    {
+                        //ICE VS ICE
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
                     //ICE PLAYER 2
-                    else if(res_2 == 4 && (res_1 == 0 || res_1 == 2))
+                    else if((res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2== ice3) &&
+                            ((res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)
+                             || (res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)))
                     {
                         //ICE is beat by FIRE & ELECTRIC
                         pts_1 += 50;
-                        pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Great " + user_name_1 + "- 50 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
+                        
                     }
-                    else
+                    else if((res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3) &&
+                            ((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
                     {
-                        pts_1 = pts_1;
-                       
-                    }
-                    //EARTH PLAYER 1
-                    if(res_1 == 5 && (res_2 == 1 || res_2 == 4))
-                    {
-                    	
-                        //EARTH is beat by WATER & ICE
-                        pts_2 += 60;
-                        pts_field_2.setText(Integer.toString(pts_2));
+                        //ICE VS ICE
+                        pts_1 += 25;
+                        pts_2 += 25;
                         life_pt_1--;
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        if(life_pt_1 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_2 + "- 60 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
-                    }
-                    //EARTH PLAYER 2
-                    else if(res_2 == 5 && (res_1 == 1 || res_1 == 4))
-                    {
-                     //EARTH is beat by WATER & ICE
-                        pts_1 += 60;
-                        pts_field_1.setText(Integer.toString(pts_1));
                         life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
                         life_field_2.setText(Integer.toString(life_pt_2));
-                        if(life_pt_2 != 0){
-                        	Decorator d = new Decorator(DiceGame.this, "Awsome " + user_name_1 + "- 60 Points");
-                            d.show();                           
-                        }
-                        res_1 = 0;
-                        res_2=0;
                         
                     }
                     else
                     {
                         pts_1 = pts_1;
-                      
                     }
-                    
-                    
-                    
-                    //Winner declaration
-                    if(life_pt_1 == 0)
+                    //EARTH PLAYER 1
+                    if((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3) &&
+                       ((res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
+                        || (res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)))
                     {
-                        declare.setText(user_name_2);
-                        roll.setEnabled(false);
-                        Decorator d = new Decorator(DiceGame.this,user_name_2 + " Won by " + pts_2+"-" +pts_1);
-                        d.show();
+                        //EARTH is beat by WATER & ICE
+                        pts_2 += 50;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        
+                    }
+                    else if((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3) &&
+                            ((res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
+                    {
+                        //EARTH VS EARTH
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
+                    //EARTH PLAYER 2
+                    else if((res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3) &&
+                            ((res_1 == water || res_1 == water1 || res_1 == water2 || res_1 == water3)
+                             || (res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)))
+                    {
+                        //EARTH is beat by WATER & ICE
+                        pts_1 += 50;
+                        life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
+                    else if((res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3) &&
+                            ((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
+                    {
+                        //EARTH VS EARTH
+                        pts_1 += 25;
+                        pts_2 += 25;
+                        life_pt_1--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
+                    else
+                    {
+                        pts_1 = pts_1;
+                    }
+                    //LEGENDARY PLAYER 1
+                    if((res_1 == 24 || res_1 == 25) && (res_2 == fire || res_2 == water  ||
+                                                        res_2 == electric || res_2 == grass || res_2 == ice  || res_2 == earth))
+                    {
+                        //LEGENDARY BEATS 1 OF EVERYTHING
+                        pts_1 += 150;
+                        life_pt_2--;
+                        life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
+                    //LEGENDARY PLAYER 2
+                    else if((res_2 == 24 || res_2 == 25) && (res_1 == fire || res_1 == water
+                                                             || res_1 == electric  || res_1 == grass || res_1 == ice  || res_1 == earth))
+                    {
+                        //LEGENDARY BEATS 1 OF EVERYTHING
+                        pts_2 += 150;
+                        life_pt_1--;
+                        life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        
+                    }
+                    //LEGENDARY ULTIMATE
+                    if((res_1 == 26) && (res_2 == 24 || res_2 == 25))
+                    {
+                        //LEGENDARY PLAYER 1 WINS GAME
+                        pts_1 += 500;
+                        life_pt_2--;
+                        life_pt_2--;
+                        life_pt_2--;
+                        life_pt_2--;
+                        life_pt_2--;
+                        life_pt_2--;
+                        pts_field_1.setText(Integer.toString(pts_1));
+                        life_field_2.setText(Integer.toString(life_pt_2));
+                        
+                    }
+                    //LEGENDARY ULTIMATE
+                    if((res_2 == 26) && (res_1 == 24 || res_1 == 25))
+                    {
+                        //LEGENDARY PLAYER 2 WINS GAME
+                        pts_2 += 500;
+                        life_pt_1--;
+                        life_pt_1--;
+                        life_pt_1--;
+                        life_pt_1--;
+                        life_pt_1--;
+                        life_pt_1--;
+                        pts_field_2.setText(Integer.toString(pts_2));
+                        life_field_1.setText(Integer.toString(life_pt_1));
+                        
                     }
                     
-                    if(life_pt_2 == 0)
-                    {
-                        declare.setText(user_name_1);
-                        roll.setEnabled(false);
-                        Decorator d = new Decorator(DiceGame.this,user_name_1 + " Won by " + pts_1+"-" +pts_2);
-                        d.show();
-                    }
+                    
+                    //Declares a Winner
+                    Winner();
                     
                     turn_1 = 0;
                     turn_2 = 0;
                 }
                 
-         
+            }
         });
         
         
@@ -657,8 +824,8 @@ public class DiceGame extends JFrame{
             {
                 //Execute when button is pressed
                 
-                life_field_1.setText("3");
-                life_field_2.setText("3");
+                life_field_1.setText("5");
+                life_field_2.setText("5");
                 
                 pts_field_1.setText("0");
                 pts_field_2.setText("0");
@@ -715,8 +882,8 @@ public class DiceGame extends JFrame{
                 p_names_1.setBackground(Color.WHITE);
                 p_names_2.setBackground(Color.WHITE);
                 
-                life_pt_1 = 3;
-                life_pt_2 = 3;
+                life_pt_1 = 5;
+                life_pt_2 = 5;
                 pts_1 = 0;
                 pts_2 = 0;
                 
@@ -742,12 +909,27 @@ public class DiceGame extends JFrame{
         }
          );
     }
-    
+    public void Winner()
+    {
+        //Winner declaration
+        if(life_pt_1 <= 0)
+        {
+            declare.setText(user_name_2);
+            roll.setEnabled(false);
+        }
+        
+        if(life_pt_2 <= 0)
+        {
+            declare.setText(user_name_1);
+            roll.setEnabled(false);
+        }
+    }
     
     public static void main(String[] args){
         
         Frame f = new DiceGame();
         f.show();
     }
+    
     
 }
