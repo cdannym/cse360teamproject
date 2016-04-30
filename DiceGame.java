@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.*;
+
 import java.util.*;
-import java.util.Random;
+
 import javax.swing.border.Border;
 
 public class DiceGame extends JFrame{
@@ -103,7 +105,7 @@ public class DiceGame extends JFrame{
         Border border3 = BorderFactory.createLineBorder(Color.DARK_GRAY, 5);
         
         //Set Frame size and color
-        setSize(600,800);
+        setSize(600,700);
         
         life_pt_1 = 5;
         life_pt_2 = 5;
@@ -152,8 +154,6 @@ public class DiceGame extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	//Gets the player 1 username 
-                
                 click1 = 1;
                 user_name_1 = name1.getText();
                 sub_name_1 = new Label(user_name_1);
@@ -184,7 +184,6 @@ public class DiceGame extends JFrame{
             {
                 //Execute when button is pressed
                 
-               // get_player_2(user_name_2);
                 click1 = 1;
                 user_name_2 = name2.getText();
                 sub_name_2 = new Label(user_name_2);
@@ -225,7 +224,6 @@ public class DiceGame extends JFrame{
         panel4.add(rollNum);
         panel4.add(showRoll);
         
-        //Elements determined by random generator
         fire = 0; fire1 = 1; fire2 = 2; fire3 = 3;
         water = 4; water1 = 5; water2 = 6; water3 = 7;
         electric = 8; electric1 = 9; electric2 = 10; electric3 = 11;
@@ -279,6 +277,10 @@ public class DiceGame extends JFrame{
                         //FIRE VS FIRE & ELECTRIC
                     	fire_lose_weak_2();
                     }
+                    else
+                    {
+                        pts_1 = pts_1;
+                    }
                     //WATER PLAYER 1
                     if((res_1  == water || res_1 == water1 || res_1 == water2 || res_1 == water3) &&
                        ((res_2  == electric || res_2  == electric1 || res_2  == electric2 || res_2  == electric3)
@@ -312,6 +314,10 @@ public class DiceGame extends JFrame{
                         //WATER VS WATER & ICE
                     	water_lose_weak_2();
                     }
+                    else
+                    {
+                        pts_1 = pts_1;
+                    }
                     //ELECTRIC PLAYER 1
                     if((res_1  == electric || res_1  == electric1 || res_1  == electric2 || res_1  == electric3) &&
                        ((res_2  == grass || res_2  == grass1 || res_2  == grass2 || res_2  == grass3)
@@ -343,6 +349,10 @@ public class DiceGame extends JFrame{
                         //ELECTRIC VS ELECTRIC
                     	electric_lose_weak_2();
                         
+                    }
+                    else
+                    {
+                        pts_1 = pts_1;
                     }
                     //GRASS PLAYER 1
                     if((res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3) &&
@@ -379,6 +389,9 @@ public class DiceGame extends JFrame{
                         
                     }
                     else
+                    {
+                        pts_1 = pts_1;
+                    }
                     //ICE PLAYER 1
                     if((res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3) &&
                        ((res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3)
@@ -412,6 +425,9 @@ public class DiceGame extends JFrame{
                         
                     }
                     else
+                    {
+                        pts_1 = pts_1;
+                    }
                     //EARTH PLAYER 1
                     if((res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3) &&
                        ((res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
@@ -443,6 +459,10 @@ public class DiceGame extends JFrame{
                         //EARTH VS EARTH
                         earth_lose_weak_2();
                         
+                    }
+                    else
+                    {
+                        pts_1 = pts_1;
                     }
                     //LEGENDARY PLAYER 1
                     if((res_1 == 24 || res_1 == 25) && ((res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3) 
@@ -477,16 +497,21 @@ public class DiceGame extends JFrame{
                         pts_field_2.setText(Integer.toString(pts_2));
                         life_field_1.setText(Integer.toString(life_pt_1));
                         
-                    }  
+                    }
+                
+                    
                     //Declares a Winner
                     Winner(user_name_1, user_name_2, life_pt_1, life_pt_2);
                     
                     turn_1 = 0;
                     turn_2 = 0;
-                }    
+                }
+                
             }
         });
-                
+        
+        
+        
         //Player Stats
         panel4b = new JPanel(new FlowLayout()); //For getting player info
         panelGame.add(panel4b, panel4b.CENTER_ALIGNMENT);
@@ -589,7 +614,7 @@ public class DiceGame extends JFrame{
         panelGame.add(statsPanel, statsPanel.LEFT_ALIGNMENT);
        	statsPanel.setBackground(Color.BLACK);
         statsPanel.setForeground(Color.WHITE);
-        statsLabel = new Label("Final Results: ");
+        statsLabel = new Label("Final Stats: ");
         statsPanel.add(statsLabel);
         statsTextArea = new JTextArea();
         statsTextArea.setAlignmentX(statsTextArea.LEFT_ALIGNMENT);
@@ -697,7 +722,10 @@ public class DiceGame extends JFrame{
         }
          );
     }
-    //Method for Fire
+
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void fire_lose_strong_1()
     {
     	
@@ -708,7 +736,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
     	
     }
-    //Method for Fire
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void fire_lose_strong_2()
     {
     	pts_1 += 50;
@@ -718,7 +748,9 @@ public class DiceGame extends JFrame{
         life_field_2.setText(Integer.toString(life_pt_2));
     }
     
-    //Method for Fire
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void fire_lose_weak_1()
     {
     	pts_1 += 25;
@@ -730,7 +762,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Fire
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void fire_lose_weak_2()
     {
         pts_1 += 25;
@@ -742,7 +776,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Water
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void water_lose_strong_1()
     {
     	pts_2 += 50;
@@ -751,7 +787,9 @@ public class DiceGame extends JFrame{
         pts_field_2.setText(Integer.toString(pts_2));
         life_field_1.setText(Integer.toString(life_pt_1));
     }
-    //Method for Water
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void water_lose_strong_2()
     {
     	pts_1 += 50;
@@ -760,7 +798,9 @@ public class DiceGame extends JFrame{
         pts_field_1.setText(Integer.toString(pts_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Water
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void water_lose_weak_1()
     {
     	pts_1 += 25;
@@ -772,7 +812,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Water
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void water_lose_weak_2()
     {
     	pts_1 += 25;
@@ -784,7 +826,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Electric
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void electric_lose_strong_1()
     {
     	pts_2 += 50;
@@ -793,7 +837,9 @@ public class DiceGame extends JFrame{
         pts_field_2.setText(Integer.toString(pts_2));
         life_field_1.setText(Integer.toString(life_pt_1));
     }
-    //Method for Electric
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void electric_lose_strong_2()
     {
     	pts_1 += 50;
@@ -802,7 +848,9 @@ public class DiceGame extends JFrame{
         pts_field_1.setText(Integer.toString(pts_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Electric
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void electric_lose_weak_1()
     {
     	pts_1 += 25;
@@ -814,7 +862,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Electric
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void electric_lose_weak_2()
     {
     	pts_1 += 25;
@@ -827,7 +877,8 @@ public class DiceGame extends JFrame{
         life_field_2.setText(Integer.toString(life_pt_2));
     }
     
-    //Method for Grass
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void grass_lose_strong_1()
     {
     	pts_2 += 50;
@@ -837,7 +888,8 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
     }
     
-    //Method for Grass
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void grass_lose_weak_1()
     {
     	pts_1 += 25;
@@ -850,7 +902,8 @@ public class DiceGame extends JFrame{
         life_field_2.setText(Integer.toString(life_pt_2));
     }
     
-    //Method for Grass
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void grass_lose_strong_2()
     {
     	pts_1 += 50;
@@ -860,7 +913,8 @@ public class DiceGame extends JFrame{
         life_field_2.setText(Integer.toString(life_pt_2));
     }
     
-    //Method for Grass
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void grass_lose_weak_2()
     {
     	pts_1 += 25;
@@ -872,7 +926,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Ice
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void ice_lose_strong_1()
     {
     	pts_2 += 50;
@@ -881,7 +937,9 @@ public class DiceGame extends JFrame{
         pts_field_2.setText(Integer.toString(pts_2));
         life_field_1.setText(Integer.toString(life_pt_1));
     }
-    //Method for Ice
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void ice_lose_weak_1()
     {
     	pts_1 += 25;
@@ -893,7 +951,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Ice
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void ice_lose_strong_2()
     {
     	pts_1 += 50;
@@ -902,7 +962,9 @@ public class DiceGame extends JFrame{
         pts_field_1.setText(Integer.toString(pts_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Ice
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void ice_lose_weak_2()
     {
     	pts_1 += 25;
@@ -913,8 +975,10 @@ public class DiceGame extends JFrame{
         pts_field_2.setText(Integer.toString(pts_2));
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
-    }  
-    //Method for Earth
+    }
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void earth_lose_strong_1()
     {
     	pts_2 += 50;
@@ -922,7 +986,9 @@ public class DiceGame extends JFrame{
         pts_field_2.setText(Integer.toString(pts_2));
         life_field_1.setText(Integer.toString(life_pt_1));
     }
-    //Method for Earth
+    
+    /***Indicates that player 1 lost upon rolling element***/
+    
     public void earth_lose_weak_1()
     {
     	pts_1 += 25;
@@ -934,7 +1000,9 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Earth
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void earth_lose_strong_2()
     {
     	pts_1 += 50;
@@ -943,7 +1011,9 @@ public class DiceGame extends JFrame{
         pts_field_1.setText(Integer.toString(pts_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Earth
+    
+    /***Indicates that player 2 lost upon rolling element***/
+    
     public void earth_lose_weak_2()
     {
     	pts_1 += 25;
@@ -955,38 +1025,40 @@ public class DiceGame extends JFrame{
         life_field_1.setText(Integer.toString(life_pt_1));
         life_field_2.setText(Integer.toString(life_pt_2));
     }
-    //Method for Earth
+    
+    /***Indicates what happens when ROLL is pressed***/
+    
     public void roll(ActionEvent e)
     {
 
         turn++;
-        random = elementGenerator.nextInt(26);
+        random = elementGenerator.nextInt(27);
         player_stats.append("\n");
         player_stats.append("Player stats");
         
         if(random == fire || random == fire1 || random == fire2 || random == fire3){
             element = "FIRE";
-            showRoll.setText("FIRE");
+            showRoll.setText("FIRE"  + random);
             
         }else if(random == water || random == water1 || random == water2 || random == water3){
             element = "WATER";
-            showRoll.setText("WATER");
+            showRoll.setText("WATER"  + random);
         }else if(random == electric || random == electric1 || random == electric2 || random == electric3){
             element = "ELECTRIC";
-            showRoll.setText("ELECTRIC");
+            showRoll.setText("ELECTRIC"  + random);
         }else if(random == grass || random == grass1 || random == grass2 || random == grass3){
             element = "GRASS";
-            showRoll.setText("GRASS");
+            showRoll.setText("GRASS"  + random);
         }else if(random == ice || random == ice1 || random == ice2 || random == ice3){
             element = "ICE";
-            showRoll.setText("ICE");
+            showRoll.setText("ICE"  + random);
         }else if(random == earth || random == earth1 || random == earth2 || random == earth3){
             element = "EARTH";
-            showRoll.setText("EARTH");
+            showRoll.setText("EARTH"  + random);
         }
         else if(random == 24 || random == 25){
             element = "LEGENDARY";
-            showRoll.setText("LEGENDARY");
+            showRoll.setText("LEGENDARY"  + random);
         }
         
         //If player 1 rolls
@@ -1063,6 +1135,10 @@ public class DiceGame extends JFrame{
             p_names_2.setBackground(Color.MAGENTA);
         }
     }
+    
+    /** Insert unique String, integer 
+	 *  @param value	Strings added to indicate users, integer to indicate life points
+	 */
     
     public void Winner(String user_name_1, String user_name_2, int life_pt_1, int life_pt_2)
     {
