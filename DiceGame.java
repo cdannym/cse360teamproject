@@ -22,10 +22,14 @@ public class DiceGame extends JFrame{
     private JPanel panel8;
     private JPanel panel9;
     
+    private JPanel statsPanel;
+    private Label statsLabel;
+    private JTextArea statsTextArea;
+    
     private JLabel title;
     
     private Label player1;
-    public String user_name_1;
+    private String user_name_1;
     private TextField name1;
     private Button playSub1;
     private int click1 = 0;
@@ -56,13 +60,24 @@ public class DiceGame extends JFrame{
     private int fire2, water2, electric2, grass2, ice2, earth2;
     private int fire3, water3, electric3, grass3, ice3, earth3;
     
+    //private ImageIcon mew;
+    JLabel pokedice = new JLabel();
+    JLabel cha = new JLabel();
+    JLabel bla = new JLabel();
+    JLabel ven = new JLabel();
+    JLabel jol = new JLabel();
+    JLabel art = new JLabel();
+    JLabel tyr = new JLabel();
+    
     private Button start;
     
     private Label player_names_1, player_names_2;
     private JTextField p_names_1, p_names_2;
     
     private Label life_lbl;
+    private Label life_lbl2;
     private Label pts_lbl;
+    private Label pts_lbl2;
     private Label play_lbl;
     private Label tab_life, tab_pts;
     private JTextField life_field_1, life_field_2;
@@ -88,7 +103,7 @@ public class DiceGame extends JFrame{
         Border border3 = BorderFactory.createLineBorder(Color.DARK_GRAY, 5);
         
         //Set Frame size and color
-        setSize(500,600);
+        setSize(600,700);
         
         life_pt_1 = 5;
         life_pt_2 = 5;
@@ -104,12 +119,15 @@ public class DiceGame extends JFrame{
         
         //Add title to the game
         titlePan = new JPanel(new FlowLayout());
-        title = new JLabel("Ultimate Dice Game");
+        pokedice.setIcon(new ImageIcon ("pokedice.png"));
+        validate();
+       // title = new JLabel("Ultimate Dice Game");
         titlePan.setBackground(Color.BLACK);
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("Impact", Font.PLAIN, 50));
-        panelGame.add(titlePan);
-        titlePan.add(title);
+       // title.setForeground(Color.WHITE);
+      //  title.setFont(new Font("Impact", Font.PLAIN, 50));
+        titlePan.add(pokedice);
+        panelGame.add(titlePan, titlePan.CENTER_ALIGNMENT);
+        
         
         
         //Get player 1 information
@@ -135,7 +153,14 @@ public class DiceGame extends JFrame{
             {
                 //Execute when button is pressed
                 
-                get_player_1(user_name_1);
+            //    get_player_1(user_name_1);
+                click1 = 1;
+                user_name_1 = name1.getText();
+                sub_name_1 = new Label(user_name_1);
+                p_names_1.setText(user_name_1);
+                name1.setText(" ");
+                name1.setEditable(false);
+                playSub1.setEnabled(false);
             }
         });
         
@@ -159,7 +184,14 @@ public class DiceGame extends JFrame{
             {
                 //Execute when button is pressed
                 
-                get_player_2(user_name_2);
+               // get_player_2(user_name_2);
+                click1 = 1;
+                user_name_2 = name2.getText();
+                sub_name_2 = new Label(user_name_2);
+                p_names_2.setText(user_name_2);
+                name2.setText(" ");
+                name2.setEditable(false);
+                playSub2.setEnabled(false);
                 
             }
         });
@@ -217,7 +249,7 @@ public class DiceGame extends JFrame{
                     if((res_1  == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3)  &&
                        ((res_2 == water || res_2 == water1 || res_2 == water2 || res_2 == water3)
                         || (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
-                    {
+                    {                    
                         //FIRE is beat by WATER & EARTH
                         fire_lose_strong_1();
                         
@@ -434,8 +466,12 @@ public class DiceGame extends JFrame{
                         pts_1 = pts_1;
                     }
                     //LEGENDARY PLAYER 1
-                    if((res_1 == 24 || res_1 == 25) && (res_2 == fire || res_2 == water  ||
-                                                        res_2 == electric || res_2 == grass || res_2 == ice  || res_2 == earth))
+                    if((res_1 == 24 || res_1 == 25) && ((res_2 == fire || res_2 == fire1 || res_2 == fire2 || res_2 == fire3) 
+                    								|| (res_2 == water  || res_2 == water1 || res_2 == water2 || res_2 == water3)
+                    								|| (res_2 == electric || res_2 == electric1 || res_2 == electric2 || res_2 == electric3)
+                    								|| (res_2 == grass || res_2 == grass1 || res_2 == grass2 || res_2 == grass3) 
+                    								|| (res_2 == ice || res_2 == ice1 || res_2 == ice2 || res_2 == ice3)  
+                    								|| (res_2 == earth || res_2 == earth1 || res_2 == earth2 || res_2 == earth3)))
                     {
                         //LEGENDARY BEATS 1 OF EVERYTHING
                         pts_1 += 150;
@@ -447,8 +483,12 @@ public class DiceGame extends JFrame{
                         
                     }
                     //LEGENDARY PLAYER 2
-                    else if((res_2 == 24 || res_2 == 25) && (res_1 == fire || res_1 == water
-                                                             || res_1 == electric  || res_1 == grass || res_1 == ice  || res_1 == earth))
+                    else if((res_2 == 24 || res_2 == 25) && ((res_1 == fire || res_1 == fire1 || res_1 == fire2 || res_1 == fire3) 
+                    										|| (res_1 == water  || res_1 == water1 || res_1 == water2 || res_1 == water3)
+                    										|| (res_1 == electric || res_1 == electric1 || res_1 == electric2 || res_1 == electric3)
+                    										|| (res_1 == grass || res_1 == grass1 || res_1 == grass2 || res_1 == grass3) 
+                    										|| (res_1 == ice || res_1 == ice1 || res_1 == ice2 || res_1 == ice3)  
+                    										|| (res_1 == earth || res_1 == earth1 || res_1 == earth2 || res_1 == earth3)))
                     {
                         //LEGENDARY BEATS 1 OF EVERYTHING
                         pts_2 += 150;
@@ -459,37 +499,7 @@ public class DiceGame extends JFrame{
                         life_field_1.setText(Integer.toString(life_pt_1));
                         
                     }
-                    //LEGENDARY ULTIMATE
-                    if((res_1 == 26) && (res_2 == 24 || res_2 == 25))
-                    {
-                        //LEGENDARY PLAYER 1 WINS GAME
-                        pts_1 += 500;
-                        life_pt_2--;
-                        life_pt_2--;
-                        life_pt_2--;
-                        life_pt_2--;
-                        life_pt_2--;
-                        life_pt_2--;
-                        pts_field_1.setText(Integer.toString(pts_1));
-                        life_field_2.setText(Integer.toString(life_pt_2));
-                        
-                    }
-                    //LEGENDARY ULTIMATE
-                    if((res_2 == 26) && (res_1 == 24 || res_1 == 25))
-                    {
-                        //LEGENDARY PLAYER 2 WINS GAME
-                        pts_2 += 500;
-                        life_pt_1--;
-                        life_pt_1--;
-                        life_pt_1--;
-                        life_pt_1--;
-                        life_pt_1--;
-                        life_pt_1--;
-                        pts_field_2.setText(Integer.toString(pts_2));
-                        life_field_1.setText(Integer.toString(life_pt_1));
-                        
-                    }
-                    
+                
                     
                     //Declares a Winner
                     Winner();
@@ -538,9 +548,11 @@ public class DiceGame extends JFrame{
         panel5.setBackground(Color.BLACK);
         
         
-        life_lbl = new Label(" Life points: ");
+        life_lbl = new Label(" Player 1 HP: ");
         life_lbl.setForeground(Color.white);
         life_field_1 = new JTextField(5);
+        life_lbl2 = new Label("Player 2 HP: ");
+        life_lbl2.setForeground(Color.white);
         life_field_2 = new JTextField(5);
         
         life_field_1.setBorder(border2);
@@ -552,6 +564,7 @@ public class DiceGame extends JFrame{
         panel5.add(life_lbl);
         panel5.add(life_field_1);
         panel5.add(tab_life);
+        panel5.add(life_lbl2);
         panel5.add(life_field_2);
         
         
@@ -560,8 +573,10 @@ public class DiceGame extends JFrame{
         panelGame.add(panel6, panel6.CENTER_ALIGNMENT);
         panel6.setBackground(Color.BLACK);
         
-        pts_lbl = new Label("Total points: ");
+        pts_lbl = new Label("Player 1 Score: ");
         pts_lbl.setForeground(Color.WHITE);
+        pts_lbl2 = new Label("Player 2 Score: ");
+        pts_lbl2.setForeground(Color.white);
         pts_field_1 = new JTextField(5);
         pts_field_2 = new JTextField(5);
         
@@ -574,6 +589,7 @@ public class DiceGame extends JFrame{
         panel6.add(pts_lbl);
         panel6.add(pts_field_1);
         panel6.add(tab_pts);
+        panel6.add(pts_lbl2);
         panel6.add(pts_field_2);
         
         start.addActionListener(new ActionListener() {
@@ -594,7 +610,19 @@ public class DiceGame extends JFrame{
                 
             }
         });
-        
+        //Stats Panel
+        statsPanel = new JPanel(new FlowLayout());
+        panelGame.add(statsPanel, statsPanel.LEFT_ALIGNMENT);
+       	statsPanel.setBackground(Color.BLACK);
+        statsPanel.setForeground(Color.WHITE);
+        statsLabel = new Label("Final Stats: ");
+        statsPanel.add(statsLabel);
+        statsTextArea = new JTextArea();
+        statsTextArea.setAlignmentX(statsTextArea.LEFT_ALIGNMENT);
+        statsTextArea.setForeground(Color.WHITE);
+        statsTextArea.setBackground(Color.BLACK);
+        statsTextArea.setEditable(false);
+        statsPanel.add(statsTextArea);
         
         //Game output/ Winner Declaration
         panel7 = new JPanel(new FlowLayout()); //For getting player info
@@ -624,6 +652,19 @@ public class DiceGame extends JFrame{
         
       //Shows player statistics
         panel9 = new JPanel(new FlowLayout()); //For getting player info
+        cha.setIcon(new ImageIcon ("charizard.png"));
+        bla.setIcon(new ImageIcon ("blastoise.png"));
+        ven.setIcon(new ImageIcon ("venusaur.png"));
+        jol.setIcon(new ImageIcon ("electivire.png"));
+        art.setIcon(new ImageIcon ("articuno.png"));
+        tyr.setIcon(new ImageIcon ("tyranitar.png"));
+        validate();
+        panel9.add(cha);
+        panel9.add(bla);
+        panel9.add(ven);
+        panel9.add(jol);
+        panel9.add(art);
+        panel9.add(tyr);
         panelGame.add(panel9, panel9.CENTER_ALIGNMENT);
         panel9.setBackground(Color.BLACK);
         
@@ -682,16 +723,10 @@ public class DiceGame extends JFrame{
         }
          );
     }
-    
+  /*  
     public void get_player_1(String play_1)
     {
-    	click1 = 1;
-        play_1 = name1.getText();
-        sub_name_1 = new Label(play_1);
-        p_names_1.setText(play_1);
-        name1.setText(" ");
-        name1.setEditable(false);
-        playSub1.setEnabled(false);
+    	
     }
     
     public void get_player_2(String play_2)
@@ -704,7 +739,7 @@ public class DiceGame extends JFrame{
         name2.setEditable(false);
         playSub2.setEnabled(false);
     }
-    
+    */
     public void fire_lose_strong_1()
     {
     	
@@ -1000,17 +1035,12 @@ public class DiceGame extends JFrame{
         //If player 1 rolls
         if(turn % 2 == 1)
         {
-            //p_names_1.setBackground(Color.RED);
-            //p_names_2.setBackground(Color.WHITE);
-            //player_names_1.setForeground(Color.RED);
-            //player_names_1.setForeground(Color.WHITE);
+        
             turn_1 = 1;
             res_1 = random;
             
         }else{
-            //If player 2 rolls
-            //	p_names_1.setForeground(Color.WHITE);
-            //p_names_2.setForeground(Color.RED);
+           
             turn_2 = 1;
             res_2 = random;
         }
@@ -1082,6 +1112,7 @@ public class DiceGame extends JFrame{
         //Winner declaration
         if(life_pt_1 <= 0)
         {
+        	statsTextArea.append(" " + user_name_1 + ": " + pts_1 + "\t" + user_name_2 + ": " + pts_2 + "\n");
             declare.setText(user_name_2);
             roll.setEnabled(false);
             player_stats.setForeground(Color.WHITE);
@@ -1089,12 +1120,14 @@ public class DiceGame extends JFrame{
         
         if(life_pt_2 <= 0)
         {
+        	statsTextArea.append(" " + user_name_1 + ": " + pts_1 + "\t" + user_name_2 + ": " + pts_2 + "\n");
             declare.setText(user_name_1);
             roll.setEnabled(false);
             player_stats.setForeground(Color.WHITE);
         }
     }
     
+  
     public static void main(String[] args){
         
         Frame f = new DiceGame();
