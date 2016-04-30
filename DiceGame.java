@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.*;
+
 import java.util.*;
-import java.util.Random;
+
 import javax.swing.border.Border;
 
 public class DiceGame extends JFrame{
@@ -87,7 +89,7 @@ public class DiceGame extends JFrame{
     String element;
     
     private JLabel winner;
-    private JTextField declare;
+    static JTextField declare;
     
     
     private JTextArea player_stats;
@@ -502,7 +504,7 @@ public class DiceGame extends JFrame{
                 
                     
                     //Declares a Winner
-                    Winner();
+                    Winner(user_name_1, user_name_2, life_pt_1, life_pt_2);
                     
                     turn_1 = 0;
                     turn_2 = 0;
@@ -1107,7 +1109,7 @@ public class DiceGame extends JFrame{
         }
     }
     
-    public void Winner()
+    public void Winner(String user_name_1, String user_name_2, int life_pt_1, int life_pt_2)
     {
         //Winner declaration
         if(life_pt_1 <= 0)
