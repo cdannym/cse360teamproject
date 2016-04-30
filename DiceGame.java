@@ -123,10 +123,9 @@ public class DiceGame extends JFrame{
         titlePan = new JPanel(new FlowLayout());
         pokedice.setIcon(new ImageIcon ("pokedice.png"));
         validate();
-       // title = new JLabel("Ultimate Dice Game");
+
         titlePan.setBackground(Color.BLACK);
-       // title.setForeground(Color.WHITE);
-      //  title.setFont(new Font("Impact", Font.PLAIN, 50));
+   
         titlePan.add(pokedice);
         panelGame.add(titlePan, titlePan.CENTER_ALIGNMENT);
         
@@ -609,6 +608,7 @@ public class DiceGame extends JFrame{
                 
             }
         });
+        
         //Stats Panel
         statsPanel = new JPanel(new FlowLayout());
         panelGame.add(statsPanel, statsPanel.LEFT_ALIGNMENT);
@@ -706,6 +706,7 @@ public class DiceGame extends JFrame{
                 pts_field_1.setText(" ");
                 pts_field_2.setText(" ");
                 
+                statsTextArea.setText(null);
                 
                 
             }
@@ -1144,7 +1145,7 @@ public class DiceGame extends JFrame{
     {
         //Winner declaration
         if(life_pt_1 <= 0)
-        {
+        {       
         	statsTextArea.append(" " + user_name_1 + ": " + pts_1 + "\t" + user_name_2 + ": " + pts_2 + "\n");
             declare.setText(user_name_2);
             roll.setEnabled(false);
@@ -1152,7 +1153,7 @@ public class DiceGame extends JFrame{
         }
         
         if(life_pt_2 <= 0)
-        {
+        {               
         	statsTextArea.append(" " + user_name_1 + ": " + pts_1 + "\t" + user_name_2 + ": " + pts_2 + "\n");
             declare.setText(user_name_1);
             roll.setEnabled(false);
